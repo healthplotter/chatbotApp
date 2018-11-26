@@ -10,7 +10,7 @@ import { FormControl, FormBuilder } from '@angular/forms';
 })
 export class HomePage {
   @ViewChild(Content) content: Content;
-  accessToken: string = '[YOUR_ACCESS_TOKEN]';
+  accessToken: string = '765e77e009c34f4dbb95d5c723f23288';
   client;
   messages: Message[] = [];
   messageForm: any;

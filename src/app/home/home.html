@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Dialogflow bot</ion-title>
+    <ion-title>Chat</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -13,8 +13,6 @@
 
   <div *ngFor="let message of messages" class="message-wrapper">
     <div>
-      <img class="profile-pic" [ngClass]="{'left':message.from==='bot', 'right':message.from==='user'}" src="https://api.adorable.io/avatars/50/{{message.from}}"
-      />
       <!--  wave-->
       <div class="chat-bubble" [ngClass]="{'left':message.from==='bot', 'right':message.from==='user', 'slide-left': message.from==='bot', 'slide-right':message.from==='user'}">
 
