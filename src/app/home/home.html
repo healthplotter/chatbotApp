@@ -11,28 +11,47 @@
     <ion-spinner name="dots"></ion-spinner>
   </div>
 
-  <div *ngFor="let message of messages" class="message-wrapper">
-    <div>
-      <!--  wave-->
-      <div class="chat-bubble" [ngClass]="{'left':message.from==='bot', 'right':message.from==='user', 'slide-left': message.from==='bot', 'slide-right':message.from==='user'}">
-
-        <div class="message" [innerHTML]="message.text" autolinker>
+  <div>
+    <div *ngFor="let message of messages" class="message-wrapper">
+      <div>
+        <!--  wave-->
+        <div class="chat-bubble" [ngClass]="{'left':message.from==='bot', 'right':message.from==='user', 'slide-left': message.from==='bot', 'slide-right':message.from==='user'}">
+          <div class="message" [innerHTML]="message.text" autolinker>
+          </div>
         </div>
-
-        <div class="message-detail">
-          <span class="bold">{{message.from}}</span>
-          <!-- <span>{{message.created | date:'dd/MM hh:MM'}}</span> -->
-        </div>
-
       </div>
+
+      <div class="cf"></div>
+    </div>
+   
+
+    <div *ngIf="initialScreen" style="text-align:center;margin-top:15em;">
+      <button ion-button (click)="sendMessage('Hello')" item-end>
+        Start Conversation
+      </button>
     </div>
 
-    <div class="cf"></div>
-  </div>
+    <div  *ngIf="yesNoScreen" class="chat-bubble" style="margin-bottom:6em;">
+      <button ion-button (click)="sendMessage('Yes')" item-end>Yes</button>
+      <button ion-button (click)="sendMessage('No')" item-end>No</button>
+    </div>
+
+    <div  *ngIf="sureNoScreen" class="chat-bubble" style="margin-bottom:6em;">
+      <button ion-button (click)="sendMessage('Sure')" item-end>Sure</button>
+      <button ion-button (click)="sendMessage('No')" item-end>No</button>
+    </div>
+
+    <div  *ngIf="maleFemaleScreen" class="chat-bubble" style="margin-bottom:6em;">
+      <button ion-button (click)="sendMessage('Male')" item-end>Male</button>
+      <button ion-button (click)="sendMessage('Female')" item-end>Female</button>
+    </div>
+
+  </div>   
+
 </ion-content>
 
-<ion-footer>
-  <form [formGroup]="messageForm" (submit)="sendMessage(chatBox)" novalidate>
+<ion-footer *ngIf="!initialScreen">
+  <form [formGroup]="messageForm">
     <ion-item>
       <ion-input formControlName="message" [(ngModel)]="chatBox" placeholder="Send a message..."></ion-input>
       <button ion-button clear (click)="sendMessage(chatBox)" item-end>
