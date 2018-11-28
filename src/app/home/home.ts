@@ -17,6 +17,14 @@ export class HomePage {
   messageForm: any;
   chatBox: any;
   isLoading: boolean;
+  initialScreen: boolean;
+  yesNoScreen: boolean;
+  sureNoScreen: boolean;
+  maleFemaleScreen: boolean;
+  noBlock: boolean;
+  yesBlock: boolean;
+  age: any;
+  sex: any;
 
   constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient) {
     this.chatBox = '';
