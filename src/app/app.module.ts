@@ -9,6 +9,7 @@ import { HomeModule } from './home/home.module';
 import { LoginPageModule } from './login/login.module';
 import { RegisterPageModule } from './register/register.module';
 import { HttpClientModule } from '@angular/common/http';
+import { RestProvider } from '../providers/rest/rest';
 
 @NgModule({
   declarations: [MyApp],
@@ -18,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    RestProvider,
+    RestProvider
   ]
 })
 export class AppModule {}
