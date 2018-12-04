@@ -12,10 +12,16 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class RegisterPage {
 
-  //apiUrl = 'http://localhost:3000';
-  apiUrl = 'http://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com'
+  apiUrl = 'http://localhost:3000';
+  //apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
+  userRegisterName: any;
+  userRegisterPassword: any;
+  userRegisterEmail: any;
+  userRegisterconfirmPassword: any;
+  returnRegisterData: any;
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,public httpClient: HttpClient,public restProvider: RestProvider) {
+    this.returnRegisterData = {}
 
   }
   doRegister(){
@@ -37,8 +43,8 @@ export class RegisterPage {
     if (this.userRegisterPassword == this.userRegisterconfirmPassword){
       this.httpClient.post(this.apiUrl+'/app/v1/register?'+ urlSearchParams.toString(),null)
         .subscribe(data => {
-          console.log(data)
-          if (data.response == "already_exist"){
+          this.returnRegisterData = data
+          if (this.returnRegisterData.response == "already_exist"){
             const alert = this.alertCtrl.create({
               title: 'User Exist',
               subTitle: 'Email is already registered',
@@ -46,7 +52,7 @@ export class RegisterPage {
             });
             alert.present();
           }
-          if (data.response == "registration_succesfull"){
+          if (this.returnRegisterData.response == "registration_succesfull"){
             const alert = this.alertCtrl.create({
               title: 'Registered',
               subTitle: 'You have successfully registered',

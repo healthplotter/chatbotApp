@@ -1,9 +1,10 @@
-
+<!--
 <ion-header>
   <ion-navbar>
-    <ion-title>Login</ion-title>
+    <ion-title>HEALTHPLOTTER</ion-title>
   </ion-navbar>
 </ion-header> 
+
 <ion-content>
   <ion-list>
     <ion-item>
@@ -22,4 +23,60 @@
     <button ion-button color="btncolor" full (click)="doLogin()">Login</button>
     <button ion-button color="btncolor" full (click)="doRegister()">Register</button>
   </div>
+</ion-content>-->
+
+<ion-content padding class="animated fadeIn login auth-page">
+  <div class="login-content">
+
+    <!-- Logo -->
+    <div padding-horizontal text-center  class="animated fadeInDown">
+      <div class="logo">
+        <ion-img style = "background:none;" width="60" height="50" src="./assets/imgs/logo.png"></ion-img>
+      </div>
+      <h2 ion-text class="text-primary">
+        <strong style="color: #488aff;">HEALTHPLOTTER</strong>
+      </h2>
+    </div>
+
+    <!-- Login form -->
+    
+    <ion-item>
+      <ion-label floating>
+        <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+        Email
+      </ion-label>
+      <ion-input type="email" value="" [(ngModel)]="userEmail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>
+        <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+        Password
+      </ion-label>
+      <ion-input type="password" value="" [(ngModel)]="userPassword"></ion-input>
+    </ion-item>
+    
+
+    <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>
+
+    <div>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button icon-start block tappable (click)="doLogin()">
+            <ion-icon name="log-in"></ion-icon>
+            SIGN IN
+          </button>
+        </ion-col>  
+        <ion-col col-6>
+          <button ion-button icon-start block tappable (click)="doRegister()">
+            <ion-icon name="log-in"></ion-icon>
+            SIGN UP
+          </button> 
+        </ion-col>
+      </ion-row>    
+
+    </div>
+
+  </div>
 </ion-content>
+
