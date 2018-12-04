@@ -17,7 +17,7 @@ export class LoginPage {
   //apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
   userEmail: any;
   userPassword: any;
-  returnData: returnData;
+  returnData: any;
 
   constructor(public navCtrl: NavController,public httpClient: HttpClient,public restProvider: RestProvider,private alertCtrl: AlertController) {
     this.returnData = {}

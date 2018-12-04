@@ -5,6 +5,7 @@ import { NavController } from "ionic-angular";
 import { AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { RestProvider } from '../../providers/rest/rest';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -19,9 +20,16 @@ export class RegisterPage {
   userRegisterEmail: any;
   userRegisterconfirmPassword: any;
   returnRegisterData: any;
+  authForm : FormGroup;
 
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController,public httpClient: HttpClient,public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController,public alertCtrl: AlertController,public httpClient: HttpClient,public restProvider: RestProvider,private fb: FormBuilder) {
     this.returnRegisterData = {}
+    this.authForm = fb.group({
+      'username' : [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])],
+      'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])],
+      'email' : [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      'confirmpassword': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
+    });
 
   }
   doRegister(){

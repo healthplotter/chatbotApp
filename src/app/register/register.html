@@ -6,7 +6,50 @@
 
 <ion-content>
 
-  <ion-list>
+  <form [formGroup]="authForm" (ngSubmit)="doRegister(authForm.value)">
+
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="userRegisterEmail" value="" [formControl]="authForm.controls['email']" [ngClass]="{'error-border':!authForm.controls['email'].valid}"></ion-input>
+    </ion-item><br/>
+
+    <div class="error-box" *ngIf="authForm.controls['email'].hasError('pattern') && authForm.controls['email'].touched">* Email is not valid!</div>
+
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="userRegisterName" value="" [formControl]="authForm.controls['username']" [ngClass]="{'error-border':!authForm.controls['username'].valid}"></ion-input>
+    </ion-item><br/>
+
+    <div class="error-box" *ngIf="authForm.controls['username'].hasError('required') && authForm.controls['username'].touched">* Username is required!</div>
+    <div class="error-box" *ngIf="authForm.controls['username'].hasError('minlength') && authForm.controls['username'].touched">* Minimum username length is 5!</div>
+    <div class="error-box" *ngIf="authForm.controls['username'].hasError('maxlength') && authForm.controls['username'].touched">* Maximum username length is 10!</div>
+
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="userRegisterPassword" value="" [formControl]="authForm.controls['password']"></ion-input>
+    </ion-item><br/>
+    <div class="error-box" *ngIf="authForm.controls['password'].hasError('required') && authForm.controls['password'].touched">* Password is required!</div>
+    <div class="error-box" *ngIf="authForm.controls['password'].hasError('minlength') && authForm.controls['password'].touched">* Minimum Password length is 8!</div>
+    <div class="error-box" *ngIf="authForm.controls['password'].hasError('checkFirstCharacterValidatorOutput') && authForm.controls['password'].touched">* Password cant't start with number!</div><br/>
+
+    <ion-item>
+      <ion-label floating>Confirm Password</ion-label>
+      <ion-input type="password" [(ngModel)]="userRegisterconfirmPassword" value="" [formControl]="authForm.controls['confirmpassword']"></ion-input>
+    </ion-item><br/>
+    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('required') && authForm.controls['confirmpassword'].touched">* Password is required!</div>
+    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('minlength') && authForm.controls['confirmpassword'].touched">* Minimum Password length is 8!</div>
+    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('checkFirstCharacterValidatorOutput') && authForm.controls['confirmpassword'].touched">* Password cant't start with number!</div><br/>
+
+    <div padding>
+      <button type="submit" ion-button full [disabled]="!authForm.valid">REGISTER</button>
+    </div>
+  </form>
+
+
+    <!--
     <ion-item>
       <ion-label floating>Email</ion-label>
       <ion-input type="text" value="" [(ngModel)]="userRegisterEmail"></ion-input>
@@ -26,9 +69,10 @@
       <ion-label floating>Confirm Password</ion-label>
       <ion-input type="password" value="" [(ngModel)]="userRegisterconfirmPassword"></ion-input>
     </ion-item>
+    <div padding>
+      <button ion-button color="btncolor" full (click)="doRegister()">Register</button>
+    </div>
+  -->
+    
 
-  </ion-list>
-
-  <div padding>
-    <button ion-button color="btncolor" full (click)="doRegister()">Register</button>
-  </div>
+  
