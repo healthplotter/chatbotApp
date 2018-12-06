@@ -13,8 +13,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 })
 export class RegisterPage {
 
-  apiUrl = 'http://localhost:3000';
-  //apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
+  //apiUrl = 'http://localhost:3000';
+  apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
   userRegisterName: any;
   userRegisterPassword: any;
   userRegisterEmail: any;

@@ -13,8 +13,9 @@ import { AlertController } from 'ionic-angular';
 })
 export class LoginPage {
   
-  apiUrl = 'http://localhost:3000';
+  //apiUrl = 'http://localhost:3000';
   //apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
+  apiUrl = 'https://dev.healthplotter.com';
   userEmail: any;
   userPassword: any;
   returnData: any;
