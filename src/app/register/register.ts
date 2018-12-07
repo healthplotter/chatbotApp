@@ -5,7 +5,8 @@ import { NavController } from "ionic-angular";
 import { AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { RestProvider } from '../../providers/rest/rest';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 export class RegisterPage {
 
   //apiUrl = 'http://localhost:3000';
-  apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
+  //apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
+  apiUrl = 'https://dev.healthplotter.com';
   userRegisterName: any;
   userRegisterPassword: any;
   userRegisterEmail: any;
@@ -22,7 +24,7 @@ export class RegisterPage {
   returnRegisterData: any;
   authForm : FormGroup;
 
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController,public httpClient: HttpClient,public restProvider: RestProvider,private fb: FormBuilder) {
+  constructor(public navCtrl: NavController,public alertCtrl: AlertController,public httpClient: HttpClient,public restProvider: RestProvider,public fb: FormBuilder,public loadingCtrl: LoadingController) {
     this.returnRegisterData = {}
     this.authForm = fb.group({
       'username' : [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])],
@@ -33,6 +35,12 @@ export class RegisterPage {
 
   }
   doRegister(){
+
+    let loading = this.loadingCtrl.create({
+      content: ''
+    });
+    loading.present();
+
 
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('username', this.userRegisterName);
@@ -52,6 +60,7 @@ export class RegisterPage {
       this.httpClient.post(this.apiUrl+'/app/v1/register?'+ urlSearchParams.toString(),null)
         .subscribe(data => {
           this.returnRegisterData = data
+          loading.dismiss();
           if (this.returnRegisterData.response == "already_exist"){
             const alert = this.alertCtrl.create({
               title: 'User Exist',

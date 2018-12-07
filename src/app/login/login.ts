@@ -6,6 +6,7 @@ import { NavController } from "ionic-angular";
 import { HttpClient } from '@angular/common/http';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -20,16 +21,24 @@ export class LoginPage {
   userPassword: any;
   returnData: any;
 
-  constructor(public navCtrl: NavController,public httpClient: HttpClient,public restProvider: RestProvider,private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,public httpClient: HttpClient,public restProvider: RestProvider,private alertCtrl: AlertController,public loadingCtrl: LoadingController) {
     this.returnData = {}
 
   }
 
 
   doLogin(){
+
+    let loading = this.loadingCtrl.create({
+      content: ''
+    });
+    loading.present();
+
+
     this.httpClient.get(this.apiUrl+'/app/v1/login?email='+this.userEmail+'&encrypted_password='+this.userPassword).subscribe(data => {
 
         this.returnData = data
+        loading.dismiss();
         if (this.returnData.response == "logged_in"){
           this.navCtrl.push(HomePage);
         }
