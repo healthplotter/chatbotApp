@@ -23,8 +23,28 @@
 
       <div class="cf"></div>
     </div>
-   
 
+    <div *ngIf="initialScreen" style="text-align:center;margin-top:15em;">
+      <button ion-button (click)="startConversation('Hello')" item-end>
+        Start Conversation
+      </button>
+    </div>
+  </div>   
+
+</ion-content>
+<ion-footer *ngIf="!initialScreen">
+  <form [formGroup]="messageForm">
+    <ion-item>
+      <ion-input formControlName="message" [(ngModel)]="chatBox" placeholder="Send a message..."></ion-input>
+      <button ion-button clear (click)="sendMessage(chatBox)" item-end>
+        <ion-icon class="footer-btn" name="send"></ion-icon>
+      </button>
+    </ion-item>
+  </form>
+</ion-footer>
+
+
+<!--  
     <div *ngIf="initialScreen" style="text-align:center;margin-top:15em;">
       <button ion-button (click)="sendMessage('Hello')" item-end>
         Start Conversation
@@ -60,3 +80,5 @@
     </ion-item>
   </form>
 </ion-footer>
+
+--> 

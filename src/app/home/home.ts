@@ -4,6 +4,8 @@ import { ApiAiClient } from 'api-ai-javascript';
 import { Message } from './models/message';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { NavController, NavParams } from 'ionic-angular';
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
 
 @Component({
   selector: 'page-home',
@@ -26,7 +28,7 @@ export class HomePage {
   age: any;
   sex: any;
 
-  constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient) {
+  constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
     this.chatBox = '';
     this.initialScreen = true;
     this.yesNoScreen = false;
@@ -36,6 +38,7 @@ export class HomePage {
     this.yesBlock = false;
     this.age = '';
     this.sex = '';
+    this.userEmail = navParams.get('data');
 
     this.messageForm = formBuilder.group({
       message: new FormControl('')
@@ -44,9 +47,58 @@ export class HomePage {
     this.client = new ApiAiClient({
       accessToken: this.accessToken
     });
+
+    this.chatManager = new ChatManager({
+      instanceLocator: 'v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d',
+      userId: this.userEmail,
+      tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/a30ee8b6-ab09-4799-9fd0-e508b50e209d/token' })
+    })
+
+  }
+
+  startConversation(req: string) {
+    this.initialScreen = false;
+    
+    this.chatManager
+      .connect()
+        .then(currentUser => {
+          currentUser.subscribeToRoom({
+            roomId: currentUser.rooms[0].id,
+            hooks: {
+              onMessage: message => {
+                if (message.senderId == "doctor@healthplotter.com")
+                  {
+                    this.messages.push({ from: 'bot', text: `${message.text}` });
+                  }
+                else
+                  {
+                    this.messages.push({ from: 'user', text: `${message.text}` });
+                  }
+              }
+            }
+          });
+        })
+        .catch(error => {
+          console.error("error:", error);
+        })  
   }
 
   sendMessage(req: string) {
+    this.chatManager
+      .connect()
+        .then(currentUser => {
+          currentUser.sendMessage({
+            text: req,
+            roomId: currentUser.rooms[0].id
+          });
+
+        })
+        .catch(error => {
+          console.error("error:", error);
+        })
+  }
+
+  sendMessage2(req: string) {
     if (!req || req === '') {
       return;
     }

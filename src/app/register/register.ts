@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { RestProvider } from '../../providers/rest/rest';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController } from 'ionic-angular';
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
 
 @IonicPage()
 @Component({
@@ -34,6 +35,27 @@ export class RegisterPage {
     });
 
   }
+
+
+  doRegister1(username,email){
+
+    const Chatkit = require('@pusher/chatkit-server');
+    const chatkit = new Chatkit.default({
+      instanceLocator: "v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d",
+      key: "2ad58252-cc80-44a0-9a89-cf1afba25983:H/CkAHOuYG9IOfVvXM2qlanTajzfVQCiulHq4vV0Cwo=",
+    })
+
+    chatkit.createUser({
+      id: this.userRegisterEmail,
+      name: this.userRegisterName,
+    })
+      .then(() => {
+        console.log('User created successfully');
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+
   doRegister(){
 
     let loading = this.loadingCtrl.create({
@@ -70,6 +92,45 @@ export class RegisterPage {
             alert.present();
           }
           if (this.returnRegisterData.response == "registration_succesfull"){
+            const Chatkit = require('@pusher/chatkit-server');
+            const chatkit = new Chatkit.default({
+              instanceLocator: "v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d",
+              key: "2ad58252-cc80-44a0-9a89-cf1afba25983:H/CkAHOuYG9IOfVvXM2qlanTajzfVQCiulHq4vV0Cwo=",
+            })
+
+            chatkit.createUser({
+              id: this.userRegisterEmail,
+              name: this.userRegisterName,
+            })
+              .then(() => {
+                console.log('User created successfully');
+              }).catch((err) => {
+                console.log(err);
+              });
+
+            const chatManager = new ChatManager({
+              instanceLocator: 'v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d',
+              userId: this.userRegisterEmail,
+              tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/a30ee8b6-ab09-4799-9fd0-e508b50e209d/token' })
+            })
+
+            chatManager
+              .connect()
+                .then(currentUser => {
+                  currentUser.createRoom({
+                    name: 'general',
+                    private: true,
+                    addUserIds: [this.userRegisterEmail, 'doctor@healthplotter.com'],
+                    customData: { foo: 42 },
+                  }).then(room => {
+                    console.log(`Created room called ${room.name}`)
+                  })
+                  .catch(err => {
+                    console.log(`Error creating room ${err}`)
+                  })
+                })  
+
+
             const alert = this.alertCtrl.create({
               title: 'Registered',
               subTitle: 'You have successfully registered',

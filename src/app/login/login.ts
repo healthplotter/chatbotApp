@@ -40,7 +40,7 @@ export class LoginPage {
         this.returnData = data
         loading.dismiss();
         if (this.returnData.response == "logged_in"){
-          this.navCtrl.push(HomePage);
+          this.navCtrl.push(HomePage,{data: this.userEmail});
         }
         if (this.returnData.response == "logged_out"){
           let alert = this.alertCtrl.create({
