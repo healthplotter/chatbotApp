@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class RestProvider {
 
   constructor(public http: HttpClient) {
-    console.log('Hello RestProvider Provider');
+    //console.log('Hello RestProvider Provider');
   }
 
 }

@@ -27,8 +27,11 @@ export class HomePage {
   yesBlock: boolean;
   age: any;
   sex: any;
+  userEmail: any;
+  chatManager: any;
 
   constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
+    console.log('--------------res-----------');
     this.chatBox = '';
     this.initialScreen = true;
     this.yesNoScreen = false;
@@ -38,7 +41,8 @@ export class HomePage {
     this.yesBlock = false;
     this.age = '';
     this.sex = '';
-    this.userEmail = navParams.get('data');
+    //this.userEmail = navParams.get('data');
+    this.userEmail = "user@healthplotter.com"
 
     this.messageForm = formBuilder.group({
       message: new FormControl('')
@@ -53,6 +57,12 @@ export class HomePage {
       userId: this.userEmail,
       tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/a30ee8b6-ab09-4799-9fd0-e508b50e209d/token' })
     })
+    console.log(this.chatManager)
+    this.chatManager
+      .connect()
+        .then(currentUser => {
+          console.log('Successful connection', currentUser.rooms)
+        })
 
   }
 
