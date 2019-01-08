@@ -41,8 +41,8 @@ export class HomePage {
     this.yesBlock = false;
     this.age = '';
     this.sex = '';
-    //this.userEmail = navParams.get('data');
-    this.userEmail = "user@healthplotter.com"
+    this.userEmail = navParams.get('data');
+    //this.userEmail = "user@healthplotter.com"
 
     this.messageForm = formBuilder.group({
       message: new FormControl('')
@@ -68,30 +68,39 @@ export class HomePage {
 
   startConversation(req: string) {
     this.initialScreen = false;
-    
+
     this.chatManager
       .connect()
         .then(currentUser => {
-          currentUser.subscribeToRoom({
-            roomId: currentUser.rooms[0].id,
-            hooks: {
-              onMessage: message => {
-                if (message.senderId == "doctor@healthplotter.com")
-                  {
-                    this.messages.push({ from: 'bot', text: `${message.text}` });
-                  }
-                else
-                  {
-                    this.messages.push({ from: 'user', text: `${message.text}` });
-                  }
+          currentUser.createRoom({
+            name: 'general',
+            private: true,
+            addUserIds: [this.userEmail, 'doctor@healthplotter.com'],
+            customData: { foo: 42 },
+          }).then(room => {
+            currentUser.subscribeToRoom({
+              roomId: room.id,
+              hooks: {
+                onMessage: message => {
+                  if (message.senderId == "doctor@healthplotter.com")
+                    {
+                      this.messages.push({ from: 'bot', text: `${message.text}` });
+                    }
+                  else
+                    {
+                      this.messages.push({ from: 'user', text: `${message.text}` });
+                    }
+                }
               }
-            }
-          });
-        })
-        .catch(error => {
-          console.error("error:", error);
+            });
+          })
+          .catch(err => {
+            console.log(`Error creating room ${err}`)
+          })
         })  
   }
+
+  
 
   sendMessage(req: string) {
     this.chatManager
@@ -106,6 +115,7 @@ export class HomePage {
         .catch(error => {
           console.error("error:", error);
         })
+    this.chatBox = '';    
   }
 
   sendMessage2(req: string) {

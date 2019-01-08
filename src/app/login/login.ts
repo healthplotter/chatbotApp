@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-//import { HomePage } from '../home/home';
+import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 import { IonicPage } from "ionic-angular";
 import { NavController } from "ionic-angular";
 import { HttpClient } from '@angular/common/http';
@@ -41,8 +41,8 @@ export class LoginPage {
         this.returnData = data
         loading.dismiss();
         if (this.returnData.response == "logged_in"){
-          //this.navCtrl.push(HomePage,{data: this.userEmail});
-          this.navCtrl.push(TabsPage,{data: this.userEmail});
+          this.navCtrl.push(HomePage,{data: this.userEmail});
+          //this.navCtrl.push(TabsPage,{data: this.userEmail});
         }
         if (this.returnData.response == "logged_out"){
           let alert = this.alertCtrl.create({
