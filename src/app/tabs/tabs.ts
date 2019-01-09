@@ -5,6 +5,7 @@ import { UserhomePage } from '../userhome/userhome';
 import { CareplanPage } from '../careplan/careplan';
 import { NavController } from "ionic-angular";
 import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -14,12 +15,12 @@ export class TabsPage {
   userhomeRoot = UserhomePage;
   chatRoot = HomePage;
   careplanRoot = CareplanPage
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public storage: Storage) {
 
   }
 
   chatRoomNavigate(req: string){
-    
+
     if (!req || req === '') {
       return;
     }
@@ -33,6 +34,7 @@ export class TabsPage {
     }
 
     if (req == 'logout') {
+      this.storage.set('userId', '');
       this.navCtrl.push(LoginPage);
     }
     

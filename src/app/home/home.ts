@@ -6,6 +6,7 @@ import { FormControl, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -31,7 +32,7 @@ export class HomePage {
   chatManager: any;
   roomId: any;
 
-  constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient,public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     
     this.chatBox = '';
     this.initialScreen = true;
@@ -44,7 +45,7 @@ export class HomePage {
     this.sex = '';
     this.roomId = ''
     //this.userEmail = navParams.get('data');
-    this.userEmail = "user@healthplotter.com"
+    //this.userEmail = "user@healthplotter.com"
 
     this.messageForm = formBuilder.group({
       message: new FormControl('')
@@ -54,18 +55,20 @@ export class HomePage {
       accessToken: this.accessToken
     });
 
-    this.chatManager = new ChatManager({
-      instanceLocator: 'v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d',
-      userId: this.userEmail,
-      tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/a30ee8b6-ab09-4799-9fd0-e508b50e209d/token' })
-    })
+    this.storage.get('userId').then((userId) => {
+      this.userEmail = userId
+      this.chatManager = new ChatManager({
+        instanceLocator: 'v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d',
+        userId: this.userEmail,
+        tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/a30ee8b6-ab09-4799-9fd0-e508b50e209d/token' })
+      })
 
-    this.chatManager
-      .connect()
-        .then(currentUser => {
-          console.log('Successful connection', currentUser)
-        })
-
+      this.chatManager
+        .connect()
+          .then(currentUser => {
+            console.log('Successful connection', currentUser)
+          })
+    });
   }
 
   startConversation(req: string) {

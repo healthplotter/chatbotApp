@@ -13,10 +13,11 @@ import { UserhomePageModule } from './userhome/userhome.module';
 import { CareplanPageModule } from './careplan/careplan.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RestProvider } from '../providers/rest/rest';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [MyApp],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), HomeModule, LoginPageModule, RegisterPageModule,TabsPageModule,UserhomePageModule,CareplanPageModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp), HomeModule, LoginPageModule, RegisterPageModule,TabsPageModule,UserhomePageModule,CareplanPageModule,HttpClientModule,IonicStorageModule.forRoot()],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [
@@ -24,7 +25,8 @@ import { RestProvider } from '../providers/rest/rest';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     RestProvider,
-    RestProvider
+    RestProvider,
+    IonicStorageModule
   ]
 })
 export class AppModule {}
