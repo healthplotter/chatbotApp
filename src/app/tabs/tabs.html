@@ -1,6 +1,8 @@
 <ion-tabs>
- <ion-tab [root]="chatRoot" tabTitle="Chat" tabIcon="chat"></ion-tab>
- <ion-tab [root]="careplanRoot" tabTitle="Careplan" tabIcon="chat"></ion-tab>
+ <ion-tab [root]="userhomeRoot" tabTitle="Home" tabIcon="chat"></ion-tab>
+ <ion-tab (ionSelect)="chatRoomNavigate('chat')" tabTitle="Chat" tabIcon="chat"></ion-tab>
+ <ion-tab (ionSelect)="chatRoomNavigate('careplan')" tabTitle="Careplan" tabIcon="chat"></ion-tab>
+ <ion-tab (ionSelect)="chatRoomNavigate('logout')"tabTitle="Logout" tabIcon="chat"></ion-tab>
 </ion-tabs>
 <!--
 <ion-tabs>

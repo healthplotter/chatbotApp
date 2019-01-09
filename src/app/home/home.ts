@@ -41,8 +41,8 @@ export class HomePage {
     this.yesBlock = false;
     this.age = '';
     this.sex = '';
-    this.userEmail = navParams.get('data');
-    //this.userEmail = "user@healthplotter.com"
+    //this.userEmail = navParams.get('data');
+    this.userEmail = "user@healthplotter.com"
 
     this.messageForm = formBuilder.group({
       message: new FormControl('')
