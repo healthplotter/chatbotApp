@@ -19,8 +19,7 @@ export class TabsPage {
   }
 
   chatRoomNavigate(req: string){
-    console.log("-------------navigate to chat room----------");
-    console.log(req)
+    
     if (!req || req === '') {
       return;
     }

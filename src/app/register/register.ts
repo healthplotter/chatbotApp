@@ -36,7 +36,7 @@ export class RegisterPage {
 
   }
 
-
+  
   doRegister1(username,email){
 
     const Chatkit = require('@pusher/chatkit-server');
@@ -92,6 +92,7 @@ export class RegisterPage {
             alert.present();
           }
           if (this.returnRegisterData.response == "registration_succesfull"){
+            
             const Chatkit = require('@pusher/chatkit-server');
             const chatkit = new Chatkit.default({
               instanceLocator: "v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d",
@@ -108,6 +109,7 @@ export class RegisterPage {
                 console.log(err);
               });
 
+            /*
             const chatManager = new ChatManager({
               instanceLocator: 'v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d',
               userId: this.userRegisterEmail,
@@ -129,7 +131,7 @@ export class RegisterPage {
                     console.log(`Error creating room ${err}`)
                   })
                 })  
-
+            */
 
             const alert = this.alertCtrl.create({
               title: 'Registered',

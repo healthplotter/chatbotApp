@@ -29,9 +29,10 @@ export class HomePage {
   sex: any;
   userEmail: any;
   chatManager: any;
+  roomId: any;
 
   constructor(public platform: Platform, public formBuilder: FormBuilder, public httpClient: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
-    console.log('--------------res-----------');
+    
     this.chatBox = '';
     this.initialScreen = true;
     this.yesNoScreen = false;
@@ -41,6 +42,7 @@ export class HomePage {
     this.yesBlock = false;
     this.age = '';
     this.sex = '';
+    this.roomId = ''
     //this.userEmail = navParams.get('data');
     this.userEmail = "user@healthplotter.com"
 
@@ -57,11 +59,11 @@ export class HomePage {
       userId: this.userEmail,
       tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/a30ee8b6-ab09-4799-9fd0-e508b50e209d/token' })
     })
-    console.log(this.chatManager)
+
     this.chatManager
       .connect()
         .then(currentUser => {
-          console.log('Successful connection', currentUser.rooms)
+          console.log('Successful connection', currentUser)
         })
 
   }
@@ -73,11 +75,12 @@ export class HomePage {
       .connect()
         .then(currentUser => {
           currentUser.createRoom({
-            name: 'general',
+            name: currentUser.name,
             private: true,
             addUserIds: [this.userEmail, 'doctor@healthplotter.com'],
-            customData: { foo: 42 },
+            customData: { name: currentUser.name },
           }).then(room => {
+            this.roomId = room.id;
             currentUser.subscribeToRoom({
               roomId: room.id,
               hooks: {
@@ -108,7 +111,7 @@ export class HomePage {
         .then(currentUser => {
           currentUser.sendMessage({
             text: req,
-            roomId: currentUser.rooms[0].id
+            roomId: this.roomId
           });
 
         })

@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
-import { IonicStorageModule } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -24,7 +23,7 @@ export class LoginPage {
   userPassword: any;
   returnData: any;
 
-  constructor(public navCtrl: NavController,public httpClient: HttpClient,public restProvider: RestProvider,private alertCtrl: AlertController,public loadingCtrl: LoadingController,private storage: IonicStorageModule) {
+  constructor(public navCtrl: NavController,public httpClient: HttpClient,public restProvider: RestProvider,private alertCtrl: AlertController,public loadingCtrl: LoadingController) {
     this.returnData = {}
 
   }
@@ -45,7 +44,6 @@ export class LoginPage {
         if (this.returnData.response == "logged_in"){
           //this.navCtrl.push(UserhomePage,{data: this.userEmail});
           //this.navCtrl.push(HomePage,{data: this.userEmail});
-          storage.set('userID', this.userEmail);
           this.navCtrl.push(TabsPage,{data: this.userEmail});
         }
         if (this.returnData.response == "logged_out"){
