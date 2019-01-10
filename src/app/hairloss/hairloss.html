@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <button ion-button outline>
+              Hairloss
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>  
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="grid-basic-page">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="line-height:2em;background: orange;">
+        Are you here for hair loss medicines?
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-list radio-group [(ngModel)]="hairLossMedicine" style="width:100%;">
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="friends" checked></ion-radio>
+          <ion-label>Yes</ion-label>
+        </ion-item>
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="family"></ion-radio>
+          <ion-label>No</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col col-12 style="line-height:2em;background: orange;">
+        What hair loss treatments have you tried in the past?
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-list radio-group [(ngModel)]="relationship" style="width:100%;">
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="friends" checked></ion-radio>
+          <ion-label>Never used any medicine for hair loss</ion-label>
+        </ion-item>
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="family"></ion-radio>
+          <ion-label>Finasteride (Propecia, Proscar)</ion-label>
+        </ion-item>
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="enemies"></ion-radio>
+          <ion-label>Minoxidil (Rogaine over the counter)</ion-label>
+        </ion-item>
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="enemies"></ion-radio>
+          <ion-label>Other</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+
+
+
+    <ion-row>
+      <ion-col col-12 style="line-height:2em;background: orange;">
+        Did you have any side effects from your previous hair loss medicines that would stop you from using them again?
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-list radio-group [(ngModel)]="relationship" style="width:100%;">
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="friends" checked></ion-radio>
+          <ion-label>No, never used hair loss medicines before</ion-label>
+        </ion-item>
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="family"></ion-radio>
+          <ion-label>No, never had side effects that bothered me</ion-label>
+        </ion-item>
+        <ion-item text-wrap style="background:bisque;">
+          <ion-radio value="enemies"></ion-radio>
+          <ion-label>Yes</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+
+
+
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button color="danger">
+          SUBMIT
+        </button>
+      </ion-col>
+    </ion-row>
+
+
+
+
+
+
+  </ion-grid>
+</ion-content>
+
+

@@ -15,9 +15,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { RestProvider } from '../providers/rest/rest';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { hairLossPageModule } from './hairloss/hairloss.module';
+
 @NgModule({
   declarations: [MyApp],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), HomeModule, LoginPageModule, RegisterPageModule,TabsPageModule,UserhomePageModule,CareplanPageModule,HttpClientModule,IonicStorageModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp), HomeModule, LoginPageModule, RegisterPageModule,TabsPageModule,UserhomePageModule,CareplanPageModule,hairLossPageModule,HttpClientModule,IonicStorageModule.forRoot()],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [

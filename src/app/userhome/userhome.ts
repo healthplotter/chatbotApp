@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage} from "ionic-angular";
-import { HomePage } from '../home/home';
-import { CareplanPage } from '../careplan/careplan';
+import { NavController } from "ionic-angular";
+import { hairLossPage } from '../hairloss/hairloss';
 
 @IonicPage()
 @Component({
@@ -9,9 +9,18 @@ import { CareplanPage } from '../careplan/careplan';
   templateUrl: 'userhome.html'
 })
 export class UserhomePage {
-  chatRoot = HomePage;
-  careplanRoot = CareplanPage
-  constructor() {
+  constructor(public navCtrl: NavController) {
 
+  }
+
+  doAssesmentNavigate(req: string){
+    
+    if (!req || req === '') {
+      return;
+    }
+
+    if (req == 'hairloss') {
+      this.navCtrl.push(hairLossPage);
+    }
   }
 }
