@@ -22,18 +22,17 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-list radio-group [(ngModel)]="hairLossMedicine" style="width:100%;">
+      <ion-list radio-group [(ngModel)]="formData.hair_loss_medicine" style="width:100%;">
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="friends" checked></ion-radio>
+          <ion-radio value="Yes" checked></ion-radio>
           <ion-label>Yes</ion-label>
         </ion-item>
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="family"></ion-radio>
+          <ion-radio value="No"></ion-radio>
           <ion-label>No</ion-label>
         </ion-item>
       </ion-list>
     </ion-row>
-
 
     <ion-row>
       <ion-col col-12 style="line-height:2em;background: orange;">
@@ -41,27 +40,25 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-list radio-group [(ngModel)]="relationship" style="width:100%;">
+      <ion-list radio-group [(ngModel)]="formData.hair_loss_treatment" style="width:100%;">
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="friends" checked></ion-radio>
+          <ion-radio value="Never used any medicine for hair loss" checked></ion-radio>
           <ion-label>Never used any medicine for hair loss</ion-label>
         </ion-item>
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="family"></ion-radio>
+          <ion-radio value="Finasteride (Propecia, Proscar)"></ion-radio>
           <ion-label>Finasteride (Propecia, Proscar)</ion-label>
         </ion-item>
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="enemies"></ion-radio>
+          <ion-radio value="Minoxidil (Rogaine over the counter)"></ion-radio>
           <ion-label>Minoxidil (Rogaine over the counter)</ion-label>
         </ion-item>
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="enemies"></ion-radio>
+          <ion-radio value="Other"></ion-radio>
           <ion-label>Other</ion-label>
         </ion-item>
       </ion-list>
     </ion-row>
-
-
 
     <ion-row>
       <ion-col col-12 style="line-height:2em;background: orange;">
@@ -69,37 +66,29 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-list radio-group [(ngModel)]="relationship" style="width:100%;">
+      <ion-list radio-group [(ngModel)]="formData.hair_loss_sideeffect" style="width:100%;">
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="friends" checked></ion-radio>
+          <ion-radio value="No, never used hair loss medicines before" checked></ion-radio>
           <ion-label>No, never used hair loss medicines before</ion-label>
         </ion-item>
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="family"></ion-radio>
+          <ion-radio value="No, never had side effects that bothered me"></ion-radio>
           <ion-label>No, never had side effects that bothered me</ion-label>
         </ion-item>
         <ion-item text-wrap style="background:bisque;">
-          <ion-radio value="enemies"></ion-radio>
+          <ion-radio value="Yes"></ion-radio>
           <ion-label>Yes</ion-label>
         </ion-item>
       </ion-list>
     </ion-row>
 
-
-
-
     <ion-row>
       <ion-col col-12>
-        <button ion-button color="danger">
+        <button ion-button color="danger" (click)="submitHairLoss()">
           SUBMIT
         </button>
       </ion-col>
     </ion-row>
-
-
-
-
-
 
   </ion-grid>
 </ion-content>
