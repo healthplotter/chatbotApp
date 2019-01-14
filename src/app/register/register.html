@@ -7,16 +7,71 @@
 <ion-content>
 
   <form [formGroup]="authForm" (ngSubmit)="doRegister(authForm.value)">
+    <!-- Firstname Element -->
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.userFirstName" value="" [formControl]="authForm.controls['firstname']" [ngClass]="{'error-border':!authForm.controls['firstname'].valid}"></ion-input>
+    </ion-item><br/>
 
+    <div class="error-box" *ngIf="authForm.controls['firstname'].hasError('required') && authForm.controls['firstname'].touched">* First Name is required!</div>
+
+    <!-- Lastname Element -->
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.userLastName" value="" [formControl]="authForm.controls['lastname']" [ngClass]="{'error-border':!authForm.controls['lastname'].valid}"></ion-input>
+    </ion-item><br/>
+
+    <div class="error-box" *ngIf="authForm.controls['lastname'].hasError('required') && authForm.controls['lastname'].touched">* Last Name is required!</div>
+
+    <!-- Date of Birth Element -->
+    <ion-item>
+      <ion-label floating>Date of Birth</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.dob" value="" [formControl]="authForm.controls['dob']" [ngClass]="{'error-border':!authForm.controls['dob'].valid}"></ion-input>
+    </ion-item><br/>
+
+    <div class="error-box" *ngIf="authForm.controls['dob'].hasError('required') && authForm.controls['dob'].touched">* Date of Birth is required!</div>
+
+    <!-- Gender Element -->
+    <ion-item>
+      <ion-label floating>Gender</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.gender" value="" [formControl]="authForm.controls['gender']" [ngClass]="{'error-border':!authForm.controls['gender'].valid}"></ion-input>
+    </ion-item><br/>
+
+    <div class="error-box" *ngIf="authForm.controls['gender'].hasError('required') && authForm.controls['gender'].touched">* Gender required!</div>
+
+    <!-- Phone Number Element -->
+    <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.phone_number" value="" [formControl]="authForm.controls['phone_number']" [ngClass]="{'error-border':!authForm.controls['phone_number'].valid}"></ion-input>
+    </ion-item><br/>
+
+    <div class="error-box" *ngIf="authForm.controls['phone_number'].hasError('required') && authForm.controls['phone_number'].touched">* Phone number is required!</div>
 
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="text" [(ngModel)]="userRegisterEmail" value="" [formControl]="authForm.controls['email']" [ngClass]="{'error-border':!authForm.controls['email'].valid}"></ion-input>
+      <ion-input type="text" [(ngModel)]="registerData.userEmail" value="" [formControl]="authForm.controls['email']" [ngClass]="{'error-border':!authForm.controls['email'].valid}"></ion-input>
     </ion-item><br/>
 
     <div class="error-box" *ngIf="authForm.controls['email'].hasError('pattern') && authForm.controls['email'].touched">* Email is not valid!</div>
 
 
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="registerData.userPassword" value="" [formControl]="authForm.controls['password']"></ion-input>
+    </ion-item><br/>
+    <div class="error-box" *ngIf="authForm.controls['password'].hasError('required') && authForm.controls['password'].touched">* Password is required!</div>
+    <div class="error-box" *ngIf="authForm.controls['password'].hasError('minlength') && authForm.controls['password'].touched">* Minimum Password length is 8!</div>
+    <div class="error-box" *ngIf="authForm.controls['password'].hasError('checkFirstCharacterValidatorOutput') && authForm.controls['password'].touched">* Password cant't start with number!</div><br/>
+
+    <ion-item>
+      <ion-label floating>Confirm Password</ion-label>
+      <ion-input type="password" [(ngModel)]="registerData.userconfirmPassword" value="" [formControl]="authForm.controls['confirmpassword']"></ion-input>
+    </ion-item><br/>
+    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('required') && authForm.controls['confirmpassword'].touched">* Password is required!</div>
+    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('minlength') && authForm.controls['confirmpassword'].touched">* Minimum Password length is 8!</div>
+    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('checkFirstCharacterValidatorOutput') && authForm.controls['confirmpassword'].touched">* Password cant't start with number!</div><br/>
+
+    <!--
     <ion-item>
       <ion-label floating>Username</ion-label>
       <ion-input type="text" [(ngModel)]="userRegisterName" value="" [formControl]="authForm.controls['username']" [ngClass]="{'error-border':!authForm.controls['username'].valid}"></ion-input>
@@ -25,23 +80,9 @@
     <div class="error-box" *ngIf="authForm.controls['username'].hasError('required') && authForm.controls['username'].touched">* Username is required!</div>
     <div class="error-box" *ngIf="authForm.controls['username'].hasError('minlength') && authForm.controls['username'].touched">* Minimum username length is 5!</div>
     <div class="error-box" *ngIf="authForm.controls['username'].hasError('maxlength') && authForm.controls['username'].touched">* Maximum username length is 10!</div>
+    -->
 
-
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="userRegisterPassword" value="" [formControl]="authForm.controls['password']"></ion-input>
-    </ion-item><br/>
-    <div class="error-box" *ngIf="authForm.controls['password'].hasError('required') && authForm.controls['password'].touched">* Password is required!</div>
-    <div class="error-box" *ngIf="authForm.controls['password'].hasError('minlength') && authForm.controls['password'].touched">* Minimum Password length is 8!</div>
-    <div class="error-box" *ngIf="authForm.controls['password'].hasError('checkFirstCharacterValidatorOutput') && authForm.controls['password'].touched">* Password cant't start with number!</div><br/>
-
-    <ion-item>
-      <ion-label floating>Confirm Password</ion-label>
-      <ion-input type="password" [(ngModel)]="userRegisterconfirmPassword" value="" [formControl]="authForm.controls['confirmpassword']"></ion-input>
-    </ion-item><br/>
-    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('required') && authForm.controls['confirmpassword'].touched">* Password is required!</div>
-    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('minlength') && authForm.controls['confirmpassword'].touched">* Minimum Password length is 8!</div>
-    <div class="error-box" *ngIf="authForm.controls['confirmpassword'].hasError('checkFirstCharacterValidatorOutput') && authForm.controls['confirmpassword'].touched">* Password cant't start with number!</div><br/>
+    
 
     <div padding>
       <button type="submit" ion-button full [disabled]="!authForm.valid">REGISTER</button>

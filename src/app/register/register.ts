@@ -16,8 +16,8 @@ import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
 export class RegisterPage {
 
   //apiUrl = 'http://localhost:3000';
-  //apiUrl = 'https://HPdevAdmin:UQurW22Vvqbp@dev.healthplotter.com';
   apiUrl = 'https://dev.healthplotter.com';
+  registerData: any;
   userRegisterName: any;
   userRegisterPassword: any;
   userRegisterEmail: any;
@@ -27,8 +27,13 @@ export class RegisterPage {
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,public httpClient: HttpClient,public restProvider: RestProvider,public fb: FormBuilder,public loadingCtrl: LoadingController) {
     this.returnRegisterData = {}
+    this.registerData = {}
     this.authForm = fb.group({
-      'username' : [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])],
+      'firstname' : [null, Validators.compose([Validators.required])],
+      'lastname' : [null, Validators.compose([Validators.required])],
+      'dob' : [null, Validators.compose([Validators.required])],
+      'gender' : [null, Validators.compose([Validators.required])],
+      'phone_number' : [null, Validators.compose([Validators.required])],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
       'confirmpassword': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
@@ -36,40 +41,21 @@ export class RegisterPage {
 
   }
 
-  
-  doRegister1(username,email){
-
-    const Chatkit = require('@pusher/chatkit-server');
-    const chatkit = new Chatkit.default({
-      instanceLocator: "v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d",
-      key: "2ad58252-cc80-44a0-9a89-cf1afba25983:H/CkAHOuYG9IOfVvXM2qlanTajzfVQCiulHq4vV0Cwo=",
-    })
-
-    chatkit.createUser({
-      id: this.userRegisterEmail,
-      name: this.userRegisterName,
-    })
-      .then(() => {
-        console.log('User created successfully');
-      }).catch((err) => {
-        console.log(err);
-      });
-  }
-
   doRegister(){
+
+    console.log(this.registerData)
 
     let loading = this.loadingCtrl.create({
       content: ''
     });
     loading.present();
 
-
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('username', this.userRegisterName);
     urlSearchParams.append('password', this.userRegisterPassword);
     urlSearchParams.append('email', this.userRegisterEmail);
 
-    if (this.userRegisterPassword != this.userRegisterconfirmPassword){
+    if (this.registerData.userPassword != this.registerData.userconfirmPassword){
       const alert = this.alertCtrl.create({
         title: 'Password',
         subTitle: 'Your password does not match',
@@ -78,12 +64,13 @@ export class RegisterPage {
       alert.present();
     }
 
-    if (this.userRegisterPassword == this.userRegisterconfirmPassword){
-      this.httpClient.post(this.apiUrl+'/app/v1/register?'+ urlSearchParams.toString(),null)
+
+    if (this.registerData.userPassword == this.registerData.userconfirmPassword){
+      this.httpClient.post(this.apiUrl+'/app/v1/register', JSON.stringify(this.registerData))
         .subscribe(data => {
           this.returnRegisterData = data
           loading.dismiss();
-          if (this.returnRegisterData.response == "already_exist"){
+          if (this.returnRegisterData.response == "user_exist"){
             const alert = this.alertCtrl.create({
               title: 'User Exist',
               subTitle: 'Email is already registered',
@@ -93,6 +80,7 @@ export class RegisterPage {
           }
           if (this.returnRegisterData.response == "registration_succesfull"){
             
+            /*
             const Chatkit = require('@pusher/chatkit-server');
             const chatkit = new Chatkit.default({
               instanceLocator: "v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d",
@@ -109,7 +97,7 @@ export class RegisterPage {
                 console.log(err);
               });
 
-            /*
+            
             const chatManager = new ChatManager({
               instanceLocator: 'v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d',
               userId: this.userRegisterEmail,
@@ -132,7 +120,6 @@ export class RegisterPage {
                   })
                 })  
             */
-
             const alert = this.alertCtrl.create({
               title: 'Registered',
               subTitle: 'You have successfully registered',
@@ -145,5 +132,25 @@ export class RegisterPage {
           console.log("--------error----");
         });      
     }
+  }
+
+  doRegister1(username,email){
+    /*
+    const Chatkit = require('@pusher/chatkit-server');
+    const chatkit = new Chatkit.default({
+      instanceLocator: "v1:us1:a30ee8b6-ab09-4799-9fd0-e508b50e209d",
+      key: "2ad58252-cc80-44a0-9a89-cf1afba25983:H/CkAHOuYG9IOfVvXM2qlanTajzfVQCiulHq4vV0Cwo=",
+    })
+
+    chatkit.createUser({
+      id: this.userRegisterEmail,
+      name: this.userRegisterName,
+    })
+      .then(() => {
+        console.log('User created successfully');
+      }).catch((err) => {
+        console.log(err);
+      });
+    */  
   }
 }

@@ -43,13 +43,14 @@ export class LoginPage {
 
         this.returnData = data
         loading.dismiss();
-        if (this.returnData.response == "logged_in"){
+        if (this.returnData.response.flag == "logged_in"){
           //this.navCtrl.push(UserhomePage,{data: this.userEmail});
           //this.navCtrl.push(HomePage,{data: this.userEmail});
-          this.storage.set('userId', this.userEmail);
+          this.storage.set('userEmail', this.userEmail);
+          this.storage.set('userID', this.returnData.response.user_data);
           this.navCtrl.push(TabsPage,{data: this.userEmail});
         }
-        if (this.returnData.response == "logged_out"){
+        if (this.returnData.response == "password_error"){
           let alert = this.alertCtrl.create({
             title: 'Password Error',
             subTitle: 'Please enter the correct password',
