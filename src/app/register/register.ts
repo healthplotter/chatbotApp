@@ -15,8 +15,8 @@ import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
 })
 export class RegisterPage {
 
-  //apiUrl = 'http://localhost:3000';
-  apiUrl = 'https://dev.healthplotter.com';
+  apiUrl = 'http://localhost:3000';
+  //apiUrl = 'https://dev.healthplotter.com';
   registerData: any;
   userRegisterName: any;
   userRegisterPassword: any;

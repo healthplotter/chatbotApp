@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <button ion-button clear>Chat List</button>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-list-header>
+      Recent Conversations
+    </ion-list-header>
+
+
+    <ion-item *ngFor="let item of chatlist" (click)="navChatRoom(item)">
+      <ion-avatar item-start>
+        <img src="assets/imgs/user.jpg">
+      </ion-avatar>
+      <h2><div class="message" [innerHTML]="item.sender_name" autolinker> </div></h2>
+      <h3></h3>
+      <p class="message" [innerHTML]="item.message" autolinker></p>
+    </ion-item>
+    <ion-item *ngIf="chatlist.length == 0">
+      No Chat items.
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -11,6 +11,8 @@ import { RegisterPageModule } from './register/register.module';
 import { TabsPageModule } from './tabs/tabs.module';
 import { UserhomePageModule } from './userhome/userhome.module';
 import { CareplanPageModule } from './careplan/careplan.module';
+import { ChatPageModule } from './chat/chat.module';
+import { ChatroomPageModule } from './chatroom/chatroom.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RestProvider } from '../providers/rest/rest';
 import { IonicStorageModule } from '@ionic/storage';
@@ -19,7 +21,7 @@ import { hairLossPageModule } from './hairloss/hairloss.module';
 
 @NgModule({
   declarations: [MyApp],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), HomeModule, LoginPageModule, RegisterPageModule,TabsPageModule,UserhomePageModule,CareplanPageModule,hairLossPageModule,HttpClientModule,IonicStorageModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp), HomeModule, LoginPageModule, RegisterPageModule,TabsPageModule,UserhomePageModule,CareplanPageModule,ChatroomPageModule,ChatPageModule,hairLossPageModule,HttpClientModule,IonicStorageModule.forRoot()],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [

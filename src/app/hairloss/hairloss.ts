@@ -15,8 +15,8 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class hairLossPage {
   
-  //apiUrl = 'http://localhost:3000';
-  apiUrl = 'https://dev.healthplotter.com';
+  apiUrl = 'http://localhost:3000';
+  //apiUrl = 'https://dev.healthplotter.com';
   formData: any;
   postData: any;
 

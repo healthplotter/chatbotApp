@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {IonicPage} from "ionic-angular";
-import { HomePage } from '../home/home';
+//import { HomePage } from '../home/home';
 import { UserhomePage } from '../userhome/userhome';
 import { CareplanPage } from '../careplan/careplan';
 import { NavController } from "ionic-angular";
 import { LoginPage } from '../login/login';
+import { ChatPage } from '../chat/chat';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -13,7 +14,7 @@ import { Storage } from '@ionic/storage';
 })
 export class TabsPage {
   userhomeRoot = UserhomePage;
-  chatRoot = HomePage;
+  chatRoot = ChatPage;
   careplanRoot = CareplanPage
   constructor(public navCtrl: NavController, public storage: Storage) {
 
@@ -26,7 +27,7 @@ export class TabsPage {
     }
 
     if (req == 'chat') {
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(ChatPage);
     }
 
     if (req == 'careplan') {
